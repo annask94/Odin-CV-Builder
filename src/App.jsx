@@ -4,11 +4,11 @@ import CVContainer from "./CVContainer.jsx";
 
 export default function App() {
   return (
-    <div className="grid grid-cols-2">
+    <div className="flex gap-4">
       <section className="formContainer">
         <Form />
       </section>
-      ;
+
       <section className="cvTemplateContainer">
         <CVContainer />
       </section>

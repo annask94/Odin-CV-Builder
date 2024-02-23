@@ -1,6 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import AddedDataEdu from "./AddedData.jsx";
+import AddedDataEdu from "./AddedDataEdu.jsx";
+import AddedDataExp from "./AddedDataExp.jsx";
+import AddedDataSkills from "./AddedDataSkills.jsx";
+import AddedDataLang from "./AddedDataLang.jsx";
 
 const FieldsetLegend = ({ legend, onSubmit, children }) => {
   return (
@@ -44,6 +47,7 @@ const AddSubmitBtn = ({ action }) => {
 export default function Form() {
   const [education, setEducation] = useState([]);
 
+  //EDUCATION
   const handleAddEducation = (e) => {
     e.preventDefault();
     const newEducation = {
@@ -66,8 +70,74 @@ export default function Form() {
     );
   };
 
+  //EXPERIENCE
+  const [experience, setExperience] = useState([]);
+
+  const handleAddExperience = (e) => {
+    e.preventDefault();
+    const newExperience = {
+      id: crypto.randomUUID(),
+      startDateExp: e.target.startDateExp.value,
+      endDateExp: e.target.endDateExp.value,
+      currentExp: e.target.currentExp.checked,
+      position: e.target.position.value,
+      company: e.target.company.value,
+    };
+
+    setExperience([...experience, newExperience]);
+
+    e.target.reset();
+  };
+
+  const handleDeleteExperience = (id) => {
+    setExperience((prevExperience) =>
+      prevExperience.filter((exp) => exp.id !== id)
+    );
+  };
+
+  //SKILLS
+  const [skills, setSkills] = useState([]);
+
+  const handleAddSkills = (e) => {
+    e.preventDefault();
+    const newSkills = {
+      id: crypto.randomUUID(),
+      addedSkill: e.target.addedSkill.value,
+    };
+
+    setSkills([...skills, newSkills]);
+
+    e.target.reset();
+  };
+
+  const handleDeleteSkills = (id) => {
+    setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
+  };
+
+  //LANGUAGES
+  const [languages, setLanguages] = useState([]);
+
+  const handleAddLanguages = (e) => {
+    e.preventDefault();
+    const newLanguages = {
+      id: crypto.randomUUID(),
+      addedLang: e.target.language.value,
+      levelLang: e.target.levels.value,
+    };
+
+    setLanguages([...languages, newLanguages]);
+
+    e.target.reset();
+  };
+
+  const handleDeleteLang = (id) => {
+    setLanguages((prevLanguages) =>
+      prevLanguages.filter((lang) => lang.id !== id)
+    );
+  };
+
   return (
-    <div className="bg-white drop-shadow p-4">
+    <div className="bg-white drop-shadow-md p-4 m-8">
       <FieldsetLegend legend="Personal Informations">
         <Input label="Full Name" id="name" type="text" />
         <Input label="E-mail adress" id="email" type="email" />
@@ -94,23 +164,31 @@ export default function Form() {
         onDeleteEducation={handleDeleteEducation}
       />
 
-      <FieldsetLegend legend="Experience">
+      <FieldsetLegend legend="Experience" onSubmit={handleAddExperience}>
         <div className="grid grid-cols-2 gap-x-4">
-          <Input label="Start date" id="start-date-work" type="month" />
-          <Input label="End date" id="end-date-work" type="month" />
-          <Input label="Still" id="current-work" type="checkbox" />
+          <Input label="Start date" id="startDateExp" type="month" />
+          <Input label="End date" id="endDateExp" type="month" />
+          <Input label="Still" id="currentExp" type="checkbox" />
           <Input label="Position" id="position" type="text" />
           <Input label="Company" id="company" type="text" />
           <AddSubmitBtn action="Add" />
         </div>
       </FieldsetLegend>
-      <FieldsetLegend legend="Skills">
+      <AddedDataExp
+        experienceData={experience}
+        onDeleteExperience={handleDeleteExperience}
+      />
+      <FieldsetLegend legend="Skills" onSubmit={handleAddSkills}>
         <div className="">
-          <Input label="Type your skills" id="skills" type="text" />
+          <Input label="Type your skills" id="addedSkill" type="text" />
           <AddSubmitBtn action="Add" />
         </div>
       </FieldsetLegend>
-      <FieldsetLegend legend="Languages">
+      <AddedDataSkills
+        skillsData={skills}
+        onDeleteSkills={handleDeleteSkills}
+      />
+      <FieldsetLegend legend="Languages" onSubmit={handleAddLanguages}>
         <Input label="Language" id="language" type="text" />
         <Input label="Levels" id="levels" type="text" list="languageLevel" />
         <datalist id="languageLevel">
@@ -123,6 +201,7 @@ export default function Form() {
         </datalist>
         <AddSubmitBtn action="Add" />
       </FieldsetLegend>
+      <AddedDataLang langData={languages} onDeleteLang={handleDeleteLang} />
     </div>
   );
 }

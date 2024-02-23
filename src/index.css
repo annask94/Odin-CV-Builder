@@ -9,3 +9,8 @@
 body {
   background-color: #e5e7eb;
 }
+
+.a4size {
+  width: 21cm;
+  min-height: 29.7cm;
+}
