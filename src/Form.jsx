@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddedDataEdu from "./AddedDataEdu.jsx";
 import AddedDataExp from "./AddedDataExp.jsx";
 import AddedDataSkills from "./AddedDataSkills.jsx";
@@ -44,25 +44,41 @@ const AddSubmitBtn = ({ action }) => {
   );
 };
 
-export default function Form() {
-  const [education, setEducation] = useState([]);
+export default function Form({
+  education,
+  experience,
+  skills,
+  languages,
+  onAddPersonalInfo,
+  onAddEducation,
+  onAddExperience,
+  onAddSkills,
+  onAddLanguages,
+}) {
+  const [educationData, setEducation] = useState([]);
+  const [experienceData, setExperience] = useState([]);
+  const [skillsData, setSkills] = useState([]);
+  const [languagesData, setLanguages] = useState([]);
 
+  useEffect(() => {
+    setEducation(education);
+  }, [education]);
+
+  useEffect(() => {
+    setExperience(experience);
+  }, [experience]);
+
+  useEffect(() => {
+    setSkills(skills);
+  }, [skills]);
+
+  useEffect(() => {
+    setLanguages(languages);
+  }, [languages]);
+
+  console.log("Education prop:", education);
+  console.log("EducationData state:", educationData);
   //EDUCATION
-  const handleAddEducation = (e) => {
-    e.preventDefault();
-    const newEducation = {
-      id: crypto.randomUUID(),
-      startDate: e.target.startDate.value,
-      endDate: e.target.endDate.value,
-      current: e.target.current.checked,
-      course: e.target.course.value,
-      institution: e.target.institution.value,
-    };
-
-    setEducation([...education, newEducation]);
-
-    e.target.reset();
-  };
 
   const handleDeleteEducation = (id) => {
     setEducation((prevEducation) =>
@@ -71,23 +87,6 @@ export default function Form() {
   };
 
   //EXPERIENCE
-  const [experience, setExperience] = useState([]);
-
-  const handleAddExperience = (e) => {
-    e.preventDefault();
-    const newExperience = {
-      id: crypto.randomUUID(),
-      startDateExp: e.target.startDateExp.value,
-      endDateExp: e.target.endDateExp.value,
-      currentExp: e.target.currentExp.checked,
-      position: e.target.position.value,
-      company: e.target.company.value,
-    };
-
-    setExperience([...experience, newExperience]);
-
-    e.target.reset();
-  };
 
   const handleDeleteExperience = (id) => {
     setExperience((prevExperience) =>
@@ -96,39 +95,12 @@ export default function Form() {
   };
 
   //SKILLS
-  const [skills, setSkills] = useState([]);
-
-  const handleAddSkills = (e) => {
-    e.preventDefault();
-    const newSkills = {
-      id: crypto.randomUUID(),
-      addedSkill: e.target.addedSkill.value,
-    };
-
-    setSkills([...skills, newSkills]);
-
-    e.target.reset();
-  };
 
   const handleDeleteSkills = (id) => {
     setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
   };
 
   //LANGUAGES
-  const [languages, setLanguages] = useState([]);
-
-  const handleAddLanguages = (e) => {
-    e.preventDefault();
-    const newLanguages = {
-      id: crypto.randomUUID(),
-      addedLang: e.target.language.value,
-      levelLang: e.target.levels.value,
-    };
-
-    setLanguages([...languages, newLanguages]);
-
-    e.target.reset();
-  };
 
   const handleDeleteLang = (id) => {
     setLanguages((prevLanguages) =>
@@ -138,13 +110,16 @@ export default function Form() {
 
   return (
     <div className="bg-white drop-shadow-md p-4 m-8">
-      <FieldsetLegend legend="Personal Informations">
+      <FieldsetLegend
+        legend="Personal Informations"
+        onSubmit={onAddPersonalInfo}
+      >
         <Input label="Full Name" id="name" type="text" />
         <Input label="E-mail adress" id="email" type="email" />
         <Input label="Phone number" id="phone" type="tel" />
         <AddSubmitBtn action="Add" />
       </FieldsetLegend>
-      <FieldsetLegend legend="Education" onSubmit={handleAddEducation}>
+      <FieldsetLegend legend="Education" onSubmit={onAddEducation}>
         <div className="grid grid-cols-2 gap-x-4">
           <Input label="Start date" id="startDate" type="month" />
           <Input label="End date" id="endDate" type="month" />
@@ -160,11 +135,11 @@ export default function Form() {
         </div>
       </FieldsetLegend>
       <AddedDataEdu
-        educationData={education}
+        educationData={educationData}
         onDeleteEducation={handleDeleteEducation}
       />
 
-      <FieldsetLegend legend="Experience" onSubmit={handleAddExperience}>
+      <FieldsetLegend legend="Experience" onSubmit={onAddExperience}>
         <div className="grid grid-cols-2 gap-x-4">
           <Input label="Start date" id="startDateExp" type="month" />
           <Input label="End date" id="endDateExp" type="month" />
@@ -175,20 +150,20 @@ export default function Form() {
         </div>
       </FieldsetLegend>
       <AddedDataExp
-        experienceData={experience}
+        experienceData={experienceData}
         onDeleteExperience={handleDeleteExperience}
       />
-      <FieldsetLegend legend="Skills" onSubmit={handleAddSkills}>
+      <FieldsetLegend legend="Skills" onSubmit={onAddSkills}>
         <div className="">
           <Input label="Type your skills" id="addedSkill" type="text" />
           <AddSubmitBtn action="Add" />
         </div>
       </FieldsetLegend>
       <AddedDataSkills
-        skillsData={skills}
+        skillsData={skillsData}
         onDeleteSkills={handleDeleteSkills}
       />
-      <FieldsetLegend legend="Languages" onSubmit={handleAddLanguages}>
+      <FieldsetLegend legend="Languages" onSubmit={onAddLanguages}>
         <Input label="Language" id="language" type="text" />
         <Input label="Levels" id="levels" type="text" list="languageLevel" />
         <datalist id="languageLevel">
@@ -201,7 +176,10 @@ export default function Form() {
         </datalist>
         <AddSubmitBtn action="Add" />
       </FieldsetLegend>
-      <AddedDataLang langData={languages} onDeleteLang={handleDeleteLang} />
+      <AddedDataLang
+        languagesData={languagesData}
+        onDeleteLang={handleDeleteLang}
+      />
     </div>
   );
 }

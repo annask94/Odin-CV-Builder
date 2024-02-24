@@ -30,19 +30,21 @@ const AddedEdu = ({
 };
 
 export default function AddedDataEdu({ educationData, onDeleteEducation }) {
+  console.log("educationData:", educationData);
   return (
     <div>
-      {educationData.map((edu) => (
-        <AddedEdu
-          key={edu.id}
-          id={edu.id}
-          startDate={edu.startDate}
-          endDate={edu.current ? "Present" : edu.endDate}
-          course={edu.course}
-          institution={edu.institution}
-          onDelete={onDeleteEducation}
-        />
-      ))}
+      {educationData &&
+        educationData.map((edu) => (
+          <AddedEdu
+            key={edu.id}
+            id={edu.id}
+            startDate={edu.startDate}
+            endDate={edu.current ? "Present" : edu.endDate}
+            course={edu.course}
+            institution={edu.institution}
+            onDelete={onDeleteEducation}
+          />
+        ))}
     </div>
   );
 }

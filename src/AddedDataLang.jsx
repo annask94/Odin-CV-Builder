@@ -34,10 +34,10 @@ const AddedLang = ({ id, addedLang, levelLang, onDelete }) => {
   );
 };
 
-export default function AddedDataLang({ langData, onDeleteLang }) {
+export default function AddedDataLang({ languagesData, onDeleteLang }) {
   return (
     <div className="mt-4">
-      {langData.map((languages) => (
+      {languagesData.map((languages) => (
         <AddedLang
           key={languages.id}
           id={languages.id}
