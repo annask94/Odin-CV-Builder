@@ -8,28 +8,37 @@ const AddedExp = ({
   currentExp,
   position,
   company,
-  onDelete,
+  onDeleteExperience,
+  customClassNameExp,
+  customClassNameExpPosition,
 }) => {
   const handleDelete = () => {
-    onDelete(id);
+    onDeleteExperience(id);
   };
   return (
-    <section className="AddedData border-b-2 mb-2 p-4 flex gap-4">
+    <section className={customClassNameExp}>
       <div>
         <p className="duration">
           {startDateExp} - {currentExp ? "Present" : endDateExp}
         </p>
-        <h2 className="course">{position}</h2>
-        <p className="institution">{company}</p>
+        <h2 className={customClassNameExpPosition}>{position}</h2>
+        <p className="company">{company}</p>
       </div>
-      <button className="hover:opacity-50" onClick={handleDelete}>
-        <img src={TrashIcon} alt="Trash can icon" className="w-8" />
-      </button>
+      {onDeleteExperience && (
+        <button className="hover:opacity-50" onClick={handleDelete}>
+          <img src={TrashIcon} alt="Trash can icon" className="w-8" />
+        </button>
+      )}
     </section>
   );
 };
 
-export default function AddedDataExp({ experienceData, onDeleteExperience }) {
+export default function AddedDataExp({
+  experienceData,
+  onDeleteExperience,
+  customClassNameExp,
+  customClassNameExpPosition,
+}) {
   return (
     <div>
       {experienceData.map((exp) => (
@@ -40,7 +49,9 @@ export default function AddedDataExp({ experienceData, onDeleteExperience }) {
           endDateExp={exp.currentExp ? "Present" : exp.endDateExp}
           position={exp.position}
           company={exp.company}
-          onDelete={onDeleteExperience}
+          onDeleteExperience={onDeleteExperience}
+          customClassNameExp={customClassNameExp}
+          customClassNameExpPosition={customClassNameExpPosition}
         />
       ))}
     </div>

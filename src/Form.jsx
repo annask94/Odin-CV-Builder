@@ -51,62 +51,21 @@ export default function Form({
   languages,
   onAddPersonalInfo,
   onAddEducation,
+  onDeleteEducation,
   onAddExperience,
+  onDeleteExperience,
   onAddSkills,
+  onDeleteSkills,
   onAddLanguages,
+  onDeleteLanguages,
 }) {
-  const [educationData, setEducation] = useState([]);
-  const [experienceData, setExperience] = useState([]);
-  const [skillsData, setSkills] = useState([]);
-  const [languagesData, setLanguages] = useState([]);
-
-  useEffect(() => {
-    setEducation(education);
-  }, [education]);
-
-  useEffect(() => {
-    setExperience(experience);
-  }, [experience]);
-
-  useEffect(() => {
-    setSkills(skills);
-  }, [skills]);
-
-  useEffect(() => {
-    setLanguages(languages);
-  }, [languages]);
-
-  console.log("Education prop:", education);
-  console.log("EducationData state:", educationData);
   //EDUCATION
 
-  const handleDeleteEducation = (id) => {
-    setEducation((prevEducation) =>
-      prevEducation.filter((edu) => edu.id !== id)
-    );
-  };
+  // //EXPERIENCE
 
-  //EXPERIENCE
+  // //SKILLS
 
-  const handleDeleteExperience = (id) => {
-    setExperience((prevExperience) =>
-      prevExperience.filter((exp) => exp.id !== id)
-    );
-  };
-
-  //SKILLS
-
-  const handleDeleteSkills = (id) => {
-    setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
-  };
-
-  //LANGUAGES
-
-  const handleDeleteLang = (id) => {
-    setLanguages((prevLanguages) =>
-      prevLanguages.filter((lang) => lang.id !== id)
-    );
-  };
+  // //LANGUAGES
 
   return (
     <div className="bg-white drop-shadow-md p-4 m-8">
@@ -135,8 +94,9 @@ export default function Form({
         </div>
       </FieldsetLegend>
       <AddedDataEdu
-        educationData={educationData}
-        onDeleteEducation={handleDeleteEducation}
+        educationData={education}
+        onDeleteEducation={onDeleteEducation}
+        customClassNameEdu={"border-b-2 mb-2 p-4 flex gap-4"}
       />
 
       <FieldsetLegend legend="Experience" onSubmit={onAddExperience}>
@@ -150,8 +110,9 @@ export default function Form({
         </div>
       </FieldsetLegend>
       <AddedDataExp
-        experienceData={experienceData}
-        onDeleteExperience={handleDeleteExperience}
+        experienceData={experience}
+        onDeleteExperience={onDeleteExperience}
+        customClassNameExp={"border-b-2 mb-2 p-4 flex gap-4"}
       />
       <FieldsetLegend legend="Skills" onSubmit={onAddSkills}>
         <div className="">
@@ -159,10 +120,7 @@ export default function Form({
           <AddSubmitBtn action="Add" />
         </div>
       </FieldsetLegend>
-      <AddedDataSkills
-        skillsData={skillsData}
-        onDeleteSkills={handleDeleteSkills}
-      />
+      <AddedDataSkills skillsData={skills} onDeleteSkills={onDeleteSkills} />
       <FieldsetLegend legend="Languages" onSubmit={onAddLanguages}>
         <Input label="Language" id="language" type="text" />
         <Input label="Levels" id="levels" type="text" list="languageLevel" />
@@ -177,8 +135,8 @@ export default function Form({
         <AddSubmitBtn action="Add" />
       </FieldsetLegend>
       <AddedDataLang
-        languagesData={languagesData}
-        onDeleteLang={handleDeleteLang}
+        languagesData={languages}
+        onDeleteLanguages={onDeleteLanguages}
       />
     </div>
   );

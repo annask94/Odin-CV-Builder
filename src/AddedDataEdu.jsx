@@ -8,28 +8,37 @@ const AddedEdu = ({
   current,
   course,
   institution,
-  onDelete,
+  onDeleteEducation,
+  customClassNameEdu,
+  customClassNameEduCourse,
 }) => {
-  const handleDelete = () => {
-    onDelete(id);
-  };
   return (
-    <section className="AddedData border-b-2 mb-2 p-4 flex gap-4">
+    <section className={customClassNameEdu}>
       <div>
         <p className="duration">
           {startDate} - {current ? "Present" : endDate}
         </p>
-        <h2 className="course">{course}</h2>
+        <h2 className={customClassNameEduCourse}>{course}</h2>
         <p className="institution">{institution}</p>
       </div>
-      <button className="hover:opacity-50" onClick={handleDelete}>
-        <img src={TrashIcon} alt="Trash can icon" className="w-8" />
-      </button>
+      {onDeleteEducation && (
+        <button
+          className="hover:opacity-50"
+          onClick={() => onDeleteEducation(id)}
+        >
+          <img src={TrashIcon} alt="Trash can icon" className="w-8" />
+        </button>
+      )}
     </section>
   );
 };
 
-export default function AddedDataEdu({ educationData, onDeleteEducation }) {
+export default function AddedDataEdu({
+  educationData,
+  onDeleteEducation,
+  customClassNameEdu,
+  customClassNameEduCourse,
+}) {
   console.log("educationData:", educationData);
   return (
     <div>
@@ -42,7 +51,9 @@ export default function AddedDataEdu({ educationData, onDeleteEducation }) {
             endDate={edu.current ? "Present" : edu.endDate}
             course={edu.course}
             institution={edu.institution}
-            onDelete={onDeleteEducation}
+            onDeleteEducation={onDeleteEducation}
+            customClassNameEdu={customClassNameEdu}
+            customClassNameEduCourse={customClassNameEduCourse}
           />
         ))}
     </div>

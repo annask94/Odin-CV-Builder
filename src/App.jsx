@@ -37,9 +37,15 @@ export default function App() {
       institution: e.target.institution.value,
     };
 
-    setEducation([...education, newEducation]);
+    setEducation((prevEducation) => [...prevEducation, newEducation]);
 
     e.target.reset();
+  };
+
+  const handleDeleteEducation = (id) => {
+    setEducation((prevEducation) =>
+      prevEducation.filter((edu) => edu.id !== id)
+    );
   };
 
   //EXPERIENCE
@@ -57,9 +63,15 @@ export default function App() {
       company: e.target.company.value,
     };
 
-    setExperience([...experience, newExperience]);
+    setExperience((prevExperience) => [...prevExperience, newExperience]);
 
     e.target.reset();
+  };
+
+  const handleDeleteExperience = (id) => {
+    setExperience((prevExperience) =>
+      prevExperience.filter((exp) => exp.id !== id)
+    );
   };
 
   //SKILLS
@@ -73,9 +85,13 @@ export default function App() {
       addedSkill: e.target.addedSkill.value,
     };
 
-    setSkills([...skills, newSkills]);
+    setSkills((prevSkills) => [...prevSkills, newSkills]);
 
     e.target.reset();
+  };
+
+  const handleDeleteSkills = (id) => {
+    setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
   };
 
   //LANGUAGES
@@ -90,9 +106,15 @@ export default function App() {
       levelLang: e.target.levels.value,
     };
 
-    setLanguages([...languages, newLanguages]);
+    setLanguages((prevLanguages) => [...prevLanguages, newLanguages]);
 
     e.target.reset();
+  };
+
+  const handleDeleteLanguages = (id) => {
+    setLanguages((prevLanguages) =>
+      prevLanguages.filter((lang) => lang.id !== id)
+    );
   };
 
   //RETURN
@@ -102,9 +124,13 @@ export default function App() {
         <Form
           onAddPersonalInfo={handleAddPersonalInfo}
           onAddEducation={handleAddEducation}
+          onDeleteEducation={handleDeleteEducation}
+          onDeleteExperience={handleDeleteExperience}
           onAddExperience={handleAddExperience}
           onAddSkills={handleAddSkills}
+          onDeleteSkills={handleDeleteSkills}
           onAddLanguages={handleAddLanguages}
+          onDeleteLanguages={handleDeleteLanguages}
           education={education}
           experience={experience}
           skills={skills}
@@ -113,13 +139,15 @@ export default function App() {
       </section>
 
       <section className="cvTemplateContainer">
-        <CVContainer
-          personalInfoAdd={personalInfo}
-          education={education}
-          experience={experience}
-          skills={skills}
-          languages={languages}
-        />
+        {
+          <CVContainer
+            personalInfoAdd={personalInfo}
+            education={education}
+            experience={experience}
+            skills={skills}
+            languages={languages}
+          />
+        }
       </section>
     </div>
   );

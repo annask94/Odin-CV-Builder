@@ -1,8 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import EmailIcon from "./assets/email-outline.svg";
 import PhoneIcon from "./assets/phone.svg";
 import AddedDataEdu from "./AddedDataEdu.jsx";
+import AddedDataExp from "./AddedDataExp.jsx";
+import AddedDataSkills from "./AddedDataSkills.jsx";
+import AddedDataLang from "./AddedDataLang.jsx";
 
 const PersonalInfo = ({ personalInfoAdd }) => {
   const { name, email, phone } = personalInfoAdd;
@@ -21,6 +23,10 @@ const PersonalInfo = ({ personalInfoAdd }) => {
   );
 };
 
+const CategoryHeader = ({ title }) => {
+  return <h2 className="text-2xl font-bold text-gray-700">{title}</h2>;
+};
+
 export default function CVContainer({
   personalInfoAdd,
   education,
@@ -28,35 +34,40 @@ export default function CVContainer({
   skills,
   languages,
 }) {
-  const [educationData, setEducation] = useState([]);
-  const [experienceData, setExperience] = useState([]);
-  const [skillsData, setSkills] = useState([]);
-  const [languagesData, setLanguages] = useState([]);
-
-  useEffect(() => {
-    setEducation(education);
-  }, [education]);
-
-  useEffect(() => {
-    setExperience(experience);
-  }, [experience]);
-
-  useEffect(() => {
-    setSkills(skills);
-  }, [skills]);
-
-  useEffect(() => {
-    setLanguages(languages);
-  }, [languages]);
-
   return (
     <main>
-      <div className="bg-white drop-shadow-md m-8 a4size ">
+      <div className="bg-white drop-shadow-md m-8 a4size">
         <PersonalInfo personalInfoAdd={personalInfoAdd} />
+
+        <div className="professionalInroContainer m-8">
+          <div className="eduExpContainer grid grid-cols-2 gap-8">
+            <section className="educationContainer">
+              <CategoryHeader title={"Education"} />
+              <AddedDataEdu
+                educationData={education}
+                customClassNameEdu={"mt-4"}
+                customClassNameEduCourse={"text-xl"}
+              />
+            </section>
+            <section className="experienceContainer">
+              <CategoryHeader title={"Experience"} />
+              <AddedDataExp
+                experienceData={experience}
+                customClassNameExp={"mt-4"}
+                customClassNameExpPosition={"text-xl"}
+              />
+            </section>
+          </div>
+          <section className="skillsContainer mt-8">
+            <CategoryHeader title={"Skills"} />
+            <AddedDataSkills skillsData={skills} />
+          </section>
+          <section className="languagesContainer mt-8">
+            <CategoryHeader title={"Languages"} />
+            <AddedDataLang languagesData={languages} />
+          </section>
+        </div>
       </div>
-      <section className="educationContainer">
-        <AddedDataEdu educationData={educationData} />
-      </section>
     </main>
   );
 }
