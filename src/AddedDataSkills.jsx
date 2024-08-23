@@ -1,7 +1,7 @@
-import React from "react";
-import TrashIcon from "./assets/trash-can-outline.svg";
+import React from 'react';
+import TrashIcon from './assets/trash-can-outline.svg';
 
-const AddedSkills = ({ id, addedSkill, onDeleteSkills }) => {
+function AddedSkills({ id, addedSkill, onDeleteSkills }) {
   return (
     <section className="flex gap-4">
       <p>{addedSkill}</p>
@@ -12,7 +12,7 @@ const AddedSkills = ({ id, addedSkill, onDeleteSkills }) => {
       )}
     </section>
   );
-};
+}
 
 export default function AddedDataSkills({ skillsData, onDeleteSkills }) {
   return (

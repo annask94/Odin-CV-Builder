@@ -1,7 +1,7 @@
 import React from "react";
 import TrashIcon from "./assets/trash-can-outline.svg";
 
-const AddedEdu = ({
+function AddedEdu({
   id,
   startDate,
   endDate,
@@ -11,12 +11,12 @@ const AddedEdu = ({
   onDeleteEducation,
   customClassNameEdu,
   customClassNameEduCourse,
-}) => {
+}) {
   return (
     <section className={customClassNameEdu}>
       <div>
         <p className="duration">
-          {startDate} - {current ? "Present" : endDate}
+          {startDate} -{current ? "Present" : endDate}
         </p>
         <h2 className={customClassNameEduCourse}>{course}</h2>
         <p className="institution">{institution}</p>
@@ -24,6 +24,7 @@ const AddedEdu = ({
       {onDeleteEducation && (
         <button
           className="hover:opacity-50"
+          type="button"
           onClick={() => onDeleteEducation(id)}
         >
           <img src={TrashIcon} alt="Trash can icon" className="w-8" />
@@ -31,7 +32,7 @@ const AddedEdu = ({
       )}
     </section>
   );
-};
+}
 
 export default function AddedDataEdu({
   educationData,
@@ -39,7 +40,6 @@ export default function AddedDataEdu({
   customClassNameEdu,
   customClassNameEduCourse,
 }) {
-  console.log("educationData:", educationData);
   return (
     <div>
       {educationData &&

@@ -1,7 +1,7 @@
-import React from "react";
-import TrashIcon from "./assets/trash-can-outline.svg";
+import React from 'react';
+import TrashIcon from './assets/trash-can-outline.svg';
 
-const AddedExp = ({
+function AddedExp({
   id,
   startDateExp,
   endDateExp,
@@ -11,7 +11,7 @@ const AddedExp = ({
   onDeleteExperience,
   customClassNameExp,
   customClassNameExpPosition,
-}) => {
+}) {
   const handleDelete = () => {
     onDeleteExperience(id);
   };
@@ -19,7 +19,10 @@ const AddedExp = ({
     <section className={customClassNameExp}>
       <div>
         <p className="duration">
-          {startDateExp} - {currentExp ? "Present" : endDateExp}
+          {startDateExp}
+          {' '}
+          -
+          {currentExp ? 'Present' : endDateExp}
         </p>
         <h2 className={customClassNameExpPosition}>{position}</h2>
         <p className="company">{company}</p>
@@ -31,7 +34,7 @@ const AddedExp = ({
       )}
     </section>
   );
-};
+}
 
 export default function AddedDataExp({
   experienceData,
@@ -46,7 +49,7 @@ export default function AddedDataExp({
           key={exp.id}
           id={exp.id}
           startDateExp={exp.startDateExp}
-          endDateExp={exp.currentExp ? "Present" : exp.endDateExp}
+          endDateExp={exp.currentExp ? 'Present' : exp.endDateExp}
           position={exp.position}
           company={exp.company}
           onDeleteExperience={onDeleteExperience}

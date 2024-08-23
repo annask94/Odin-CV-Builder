@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Form from "./Form.jsx";
 import CVContainer from "./CVContainer.jsx";
 
 export default function App() {
-  //PERSONAL INFORMATION
+  // PERSONAL INFORMATION
 
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
@@ -22,7 +21,7 @@ export default function App() {
     });
   };
 
-  //EDUCATION
+  // EDUCATION
 
   const [education, setEducation] = useState([]);
 
@@ -48,7 +47,7 @@ export default function App() {
     );
   };
 
-  //EXPERIENCE
+  // EXPERIENCE
 
   const [experience, setExperience] = useState([]);
 
@@ -74,7 +73,7 @@ export default function App() {
     );
   };
 
-  //SKILLS
+  // SKILLS
 
   const [skills, setSkills] = useState([]);
 
@@ -94,7 +93,7 @@ export default function App() {
     setSkills((prevSkills) => prevSkills.filter((skill) => skill.id !== id));
   };
 
-  //LANGUAGES
+  // LANGUAGES
 
   const [languages, setLanguages] = useState([]);
 
@@ -117,7 +116,6 @@ export default function App() {
     );
   };
 
-  //RETURN
   return (
     <div className="flex gap-4">
       <section className="formContainer">
@@ -139,15 +137,13 @@ export default function App() {
       </section>
 
       <section className="cvTemplateContainer">
-        {
-          <CVContainer
-            personalInfoAdd={personalInfo}
-            education={education}
-            experience={experience}
-            skills={skills}
-            languages={languages}
-          />
-        }
+        <CVContainer
+          personalInfoAdd={personalInfo}
+          education={education}
+          experience={experience}
+          skills={skills}
+          languages={languages}
+        />
       </section>
     </div>
   );

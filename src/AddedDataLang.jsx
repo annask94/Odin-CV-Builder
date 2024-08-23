@@ -1,13 +1,13 @@
-import React from "react";
-import TrashIcon from "./assets/trash-can-outline.svg";
+import React from 'react';
+import TrashIcon from './assets/trash-can-outline.svg';
 
 const levels = [
-  { level: "A1", numeric: 1 },
-  { level: "A2", numeric: 2 },
-  { level: "B1", numeric: 3 },
-  { level: "B2", numeric: 4 },
-  { level: "C1", numeric: 5 },
-  { level: "C2", numeric: 6 },
+  { level: 'A1', numeric: 1 },
+  { level: 'A2', numeric: 2 },
+  { level: 'B1', numeric: 3 },
+  { level: 'B2', numeric: 4 },
+  { level: 'C1', numeric: 5 },
+  { level: 'C2', numeric: 6 },
 ];
 
 const LevelCircles = ({ levelLang }) => {
@@ -19,16 +19,18 @@ const LevelCircles = ({ levelLang }) => {
       <div
         key={i}
         className={`w-4 h-4 mx-1 rounded-full border-2 ${
-          i <= levelNumeric ? "bg-gray-700 border-gray-700" : "border-gray-700"
+          i <= levelNumeric ? 'bg-gray-700 border-gray-700' : 'border-gray-700'
         }`}
-      ></div>
+      />,
     );
   }
 
   return circles;
 };
 
-const AddedLang = ({ id, addedLang, levelLang, onDeleteLanguages }) => {
+function AddedLang({
+  id, addedLang, levelLang, onDeleteLanguages,
+}) {
   return (
     <div className="flex items-center">
       <p className="mr-2">{addedLang}</p>
@@ -44,7 +46,7 @@ const AddedLang = ({ id, addedLang, levelLang, onDeleteLanguages }) => {
       )}
     </div>
   );
-};
+}
 
 export default function AddedDataLang({ languagesData, onDeleteLanguages }) {
   return (

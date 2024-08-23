@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import AddedDataEdu from "./AddedDataEdu.jsx";
 import AddedDataExp from "./AddedDataExp.jsx";
 import AddedDataSkills from "./AddedDataSkills.jsx";
 import AddedDataLang from "./AddedDataLang.jsx";
 
-const FieldsetLegend = ({ legend, onSubmit, children }) => {
+function FieldsetLegend({ legend, onSubmit, children }) {
   return (
     <fieldset className="mt-4">
       <legend className="uppercase mb-4 text-lg text-gray-700 border-b-2 border-gray-700">
@@ -14,9 +13,9 @@ const FieldsetLegend = ({ legend, onSubmit, children }) => {
       <form onSubmit={onSubmit}>{children}</form>
     </fieldset>
   );
-};
+}
 
-const Input = ({ label, ...props }) => {
+function Input({ label, ...props }) {
   return (
     <div className="mb-4">
       <label
@@ -31,9 +30,9 @@ const Input = ({ label, ...props }) => {
       />
     </div>
   );
-};
+}
 
-const AddSubmitBtn = ({ action }) => {
+function AddSubmitBtn({ action }) {
   return (
     <button
       type="submit"
@@ -42,7 +41,7 @@ const AddSubmitBtn = ({ action }) => {
       {action}
     </button>
   );
-};
+}
 
 export default function Form({
   education,
@@ -59,14 +58,6 @@ export default function Form({
   onAddLanguages,
   onDeleteLanguages,
 }) {
-  //EDUCATION
-
-  // //EXPERIENCE
-
-  // //SKILLS
-
-  // //LANGUAGES
-
   return (
     <div className="bg-white drop-shadow-md p-4 m-8">
       <FieldsetLegend
@@ -96,7 +87,7 @@ export default function Form({
       <AddedDataEdu
         educationData={education}
         onDeleteEducation={onDeleteEducation}
-        customClassNameEdu={"border-b-2 mb-2 p-4 flex gap-4"}
+        customClassNameEdu="border-b-2 mb-2 p-4 flex gap-4"
       />
 
       <FieldsetLegend legend="Experience" onSubmit={onAddExperience}>
@@ -112,7 +103,7 @@ export default function Form({
       <AddedDataExp
         experienceData={experience}
         onDeleteExperience={onDeleteExperience}
-        customClassNameExp={"border-b-2 mb-2 p-4 flex gap-4"}
+        customClassNameExp="border-b-2 mb-2 p-4 flex gap-4"
       />
       <FieldsetLegend legend="Skills" onSubmit={onAddSkills}>
         <div className="">
@@ -125,12 +116,12 @@ export default function Form({
         <Input label="Language" id="language" type="text" />
         <Input label="Levels" id="levels" type="text" list="languageLevel" />
         <datalist id="languageLevel">
-          <option value="A1"></option>
-          <option value="A2"></option>
-          <option value="B1"></option>
-          <option value="B2"></option>
-          <option value="C1"></option>
-          <option value="C2"></option>
+          <option aria-label="A1" value="A1" />
+          <option aria-label="A2" value="A2" />
+          <option aria-label="B1" value="B1" />
+          <option aria-label="B2" value="B2" />
+          <option aria-label="C1" value="C1" />
+          <option aria-label="C2" value="C2" />
         </datalist>
         <AddSubmitBtn action="Add" />
       </FieldsetLegend>
